@@ -1,0 +1,39 @@
+FoamFile { version 2.0; format ascii; class dictionary; object transportProperties; }
+phases (mayo air);
+
+// =====================================================================
+//  BIREBIR VALETTE (2021) -- Design A (literal degerler)
+//  Valette Tablo 1 (2D rectangular, Bn=0.1): rho_mayo=0.001 kg/m3, g=1000 m/s2,
+//  k=1 Pa.s, tau0=0.1 Pa, h0=r0=1 m  (h0: rho*g*h0=tau_c=1 'den zorunlu cikarim)
+//  VOF: interIsoAlgFoam (bizim). Hava fazi FIZIKSEL yon icin duzeltildi:
+//    rho_air < rho_mayo (oran 1000), mu_air=1e-5 Pa.s korunur (Valette'in ters havasini duzeltir).
+//  Kinematik degerler Valette literal olceginde; DINAMIK degerler korunur:
+//    k=eta_p=1 Pa.s | tau0=0.1 Pa | r_alg=1 Pa.s | mu_cap=2.5 Pa.s | mu_air=1e-5 Pa.s
+//  Bn = tau0/(rho*g*h0) = 0.1/(0.001*1000*1) = 0.10 ;  Re ~ 9e-4 (creeping)
+// =====================================================================
+
+mayo
+{
+    transportModel  Newtonian;
+    nu              [0 2 -1 0 0 0 0]   1000;        // k/rho = 1/0.001 -> k=eta_p=1 Pa.s (Valette)
+    rho             [1 -3 0 0 0 0 0]   0.001;       // Valette rho_mayo (Tablo 1)
+}
+
+air
+{
+    transportModel  Newtonian;
+    nu              [0 2 -1 0 0 0 0]   10;          // mu_air/rho_air = 1e-5/1e-6 -> mu_air=1e-5 Pa.s (Valette)
+    rho             [1 -3 0 0 0 0 0]   1e-6;        // mayodan HAFIF (oran 1000); Valette'in ters havasini duzeltir
+}
+
+sigma  [1 0 -2 0 0 0 0]  0.0;                       // Valette: yuzey gerilimi ihmal
+
+// Augmented-Lagrangian Bingham (mayo) -- kinematik (rho=0.001); DINAMIK degerler korunur
+nuMayo  [0 2 -1 0 0 0 0]   1000;          // k/rho=1/0.001 -> dinamik k=1 Pa.s (OLU KOD; momentumda mayo{nu} aktif)
+tau_y   [0 2 -2 0 0 0 0]   100;           // tau0/rho = 0.1/0.001 -> dinamik tau0=0.1 Pa (Bn=0.1)
+r_alg   [0 2 -1 0 0 0 0]   1000;          // dinamik r_alg = 1000*0.001 = 1 Pa.s korunur
+alphaAlg                   0.3;           // ALG esigi (boyutsuz)
+
+mPap                       10000;         // Valette-esdeger m=1/m_V (m_V=1e-4, FLAG-F cikarim) [100->1e4]. cap aktif -> asimptotu degistirmez (tespit #12)
+muMaxKin                   2500;          // mu_cap/rho = 2.5/0.001 -> dinamik cap=2.5 Pa.s [2D hr1 capsweep]
+gammaMin                   1e-3;          // min kayma hizi (1/s)

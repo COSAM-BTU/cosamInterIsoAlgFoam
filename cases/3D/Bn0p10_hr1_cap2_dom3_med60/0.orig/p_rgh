@@ -1,0 +1,13 @@
+FoamFile { version 2.0; format ascii; class volScalarField; object p_rgh; }
+// 3Dcyl ceyrek-silindir, valette1to1 creeping. Patch: bottom/atmosphere/xMin/yMin/xMax/yMax.
+dimensions [1 -1 -2 0 0 0 0];
+internalField uniform 0;
+boundaryField
+{
+    bottom      { type fixedFluxPressure; value uniform 0; }
+    atmosphere  { type totalPressure; p0 uniform 0; value uniform 0; }
+    xMin        { type symmetryPlane; }
+    yMin        { type symmetryPlane; }
+    xMax        { type fixedFluxPressure; value uniform 0; }
+    yMax        { type fixedFluxPressure; value uniform 0; }
+}

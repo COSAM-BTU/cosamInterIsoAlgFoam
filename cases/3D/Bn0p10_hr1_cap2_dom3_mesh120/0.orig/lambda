@@ -1,0 +1,15 @@
+FoamFile { version 2.0; format ascii; class volSymmTensorField; object lambda; }
+// 3Dcyl ceyrek-silindir, valette1to1 creeping. ALG carpan alani (kinematik gerilim). Patch: bottom/atmosphere/xMin/yMin/xMax/yMax.
+
+dimensions      [0 2 -2 0 0 0 0];
+internalField   uniform (0 0 0 0 0 0);
+
+boundaryField
+{
+    bottom      { type zeroGradient; }
+    atmosphere  { type zeroGradient; }
+    xMin        { type symmetryPlane; }
+    yMin        { type symmetryPlane; }
+    xMax        { type zeroGradient; }
+    yMax        { type zeroGradient; }
+}

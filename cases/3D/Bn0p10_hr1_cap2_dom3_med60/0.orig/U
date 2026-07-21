@@ -1,0 +1,13 @@
+FoamFile { version 2.0; format ascii; class volVectorField; object U; }
+// 3Dcyl ceyrek-silindir, valette1to1 creeping. Akis durağandan baslar (uniform 0).
+dimensions [0 1 -1 0 0 0 0];
+internalField uniform (0 0 0);
+boundaryField
+{
+    bottom      { type noSlip; }
+    atmosphere  { type pressureInletOutletVelocity; value uniform (0 0 0); }
+    xMin        { type symmetryPlane; }
+    yMin        { type symmetryPlane; }
+    xMax        { type noSlip; }
+    yMax        { type noSlip; }
+}

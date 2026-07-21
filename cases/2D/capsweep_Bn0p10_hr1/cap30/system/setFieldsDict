@@ -1,0 +1,4 @@
+FoamFile { version 2.0; format ascii; class dictionary; object setFieldsDict; }
+defaultFieldValues ( volScalarFieldValue alpha.mayo 0 volVectorFieldValue U (0 0 0) );
+// Design A: baslangic kolonu h0=r0=1 m (Valette). Kutu ust kose (x_kalinlik, r0, h0+eps)
+regions ( boxToCell { box (-1e-6 -1e-6 -1e-6) (0.1 1.0001 1.0001); fieldValues ( volScalarFieldValue alpha.mayo 1 ); } );

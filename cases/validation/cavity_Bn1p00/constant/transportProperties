@@ -1,0 +1,13 @@
+FoamFile { version 2.0; format ascii; class dictionary; object transportProperties; }
+
+// Lid-driven cavity, U_lid = 1 m/s, L = 1 m
+// Newtonian: Re = U·L/ν.  ν = 0.1 → Re = 10 (creeping)
+// Bingham: Bn = τ_y·L/(ν·U_lid)
+//   For Bn = 0.5: τ_y = Bn·ν·U/L = 0.5·0.1·1/1 = 0.05 (kinematic, m²/s²)
+// Vola 2003 reports yield surface results at Bn = 1.0 (τ_y = 0.1) for comparison.
+
+transportModel  Newtonian;
+
+nu      [0 2 -1 0 0 0 0]   0.1;
+tau_y   [0 2 -2 0 0 0 0]   0.1;
+r_alg   [0 2 -1 0 0 0 0]   0.1;

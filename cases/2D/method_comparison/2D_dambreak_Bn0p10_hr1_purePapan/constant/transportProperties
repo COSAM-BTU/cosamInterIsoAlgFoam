@@ -1,0 +1,36 @@
+FoamFile { version 2.0; format ascii; class dictionary; object transportProperties; }
+phases (mayo air);
+
+// =====================================================================
+//  PURE PAPANASTASIOU -- BIREBIR VALETTE (2021) olcegi (Design A)
+//  Stok interIsoFoam + libPapanastasiouViscosity.so (transportModel Papanastasiou).
+//  ALG YOK; tek mekanizma regularize viskozite.
+//  Valette Tablo 1 (2D rectangular, Bn=0.1): rho_mayo=0.001 kg/m3, g=1000 m/s2,
+//  k=eta_p=1 Pa.s, tau0=0.1 Pa, h0=r0=1 m. Hava: mu=1e-5 Pa.s, rho=1e-6 kg/m3
+//  (uretim kosullariyla ayni duzeltme). sigma=0.
+//  m = 1e4 s = 1/m_V (Valette m_V=1e-4) -- uretim mPap ile ayni cikarim.
+//  Kinematik degerler rho=0.001 ile bolunmus DINAMIK karsiliklar:
+//    k=1 Pa.s -> 1000 m2/s | tau0=0.1 Pa -> 100 m2/s2
+// =====================================================================
+
+mayo
+{
+    transportModel  Papanastasiou;
+    PapanastasiouCoeffs
+    {
+        k     [0 2 -1 0 0 0 0]    1000;      // eta_p/rho = 1/0.001
+        tau0  [0 2 -2 0 0 0 0]    100;       // tau_y/rho = 0.1/0.001 (Bn=0.1)
+        m     [0 0  1 0 0 0 0]    10000;     // Valette-esdeger m = 1/m_V
+        n     [0 0  0 0 0 0 0]    1;         // Bingham
+    }
+    rho             [1 -3 0 0 0 0 0]   0.001;
+}
+
+air
+{
+    transportModel  Newtonian;
+    nu              [0 2 -1 0 0 0 0]   10;          // 1e-5/1e-6
+    rho             [1 -3 0 0 0 0 0]   1e-6;
+}
+
+sigma  [1 0 -2 0 0 0 0]  0.0;

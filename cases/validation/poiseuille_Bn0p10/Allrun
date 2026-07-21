@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+cd "${0%/*}" || exit 1
+source /usr/lib/openfoam/openfoam2406/etc/bashrc
+find . -maxdepth 1 -regextype posix-extended -regex './[0-9]+(\.[0-9]+)?' -exec rm -rf {} +
+rm -rf 0 processor* log.* postProcessing
+cp -r 0.orig 0
+blockMesh > log.blockMesh 2>&1
+${1:-pimpleFoam} > log.run 2>&1
+echo "done"
+tail -8 log.run

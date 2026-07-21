@@ -1,0 +1,39 @@
+# OpenFOAM build artifacts
+Make/linux64*
+lnInclude/
+*.dep
+*.o
+
+# OpenFOAM time directories (numeric names only; 0/ and 0.orig/ are tracked)
+[1-9]/
+[0-9][0-9]/
+[0-9][0-9][0-9]/
+[0-9][0-9][0-9][0-9]/
+[0-9][0-9][0-9][0-9][0-9]/
+[0-9]*.[0-9]*/
+!0/
+!0.orig/
+
+# OpenFOAM run outputs
+processor*/
+postProcessing/
+dynamicCode/
+constant/polyMesh/
+log/
+log.*
+
+# Python
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+._*
+
+# IDE
+.vscode/
+.idea/
+
+# ParaView
+*.foam
+*.pvsm
