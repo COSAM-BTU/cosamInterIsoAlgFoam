@@ -112,7 +112,9 @@ The two-phase solver retains an optional porous-drag scaffolding (`createPorosit
 
 If you use this solver in your research, please cite the accompanying paper:
 
-> Hos, I., Aydinbakar, L. (2026). A hybrid augmented Lagrangian–Papanastasiou VOF solver for viscoplastic free-surface flows: an open-source OpenFOAM implementation validated on dam-break collapse. *Submitted.*
+> Hoş, İ., Aydinbakar, L. (2026). A hybrid augmented Lagrangian–Papanastasiou VOF solver for viscoplastic free-surface flows: an open-source OpenFOAM implementation and dam-break benchmarks. *Submitted.*
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21480896.svg)](https://doi.org/10.5281/zenodo.21480896)
 
 ## License
 
